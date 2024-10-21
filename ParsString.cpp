@@ -33,6 +33,7 @@ string ParsString::replace(uint BeginIndex, uint EndIndex, const char* str, uint
     {
         string Str(str, str+SizeStr);
         Resault.replace(BeginIndex, (EndIndex-BeginIndex+1), Str);
+        _String = Resault;
     }
     return Resault;
 }
@@ -44,6 +45,7 @@ string ParsString::replace(pair<uint, uint> PairIndex, string& Str)
     and (PairIndex.first < PairIndex.second))
     {
         Resault.replace(PairIndex.first, (PairIndex.second-PairIndex.first+1), Str);
+        _String = Resault;
     }
     return Resault;
 }
