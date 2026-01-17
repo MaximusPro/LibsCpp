@@ -164,4 +164,16 @@ void find_all_links(const GumboNode* node, vector<string>& links)
         find_all_links(static_cast<GumboNode*>(children->data[i]), links);
     }
 }
+std::string readAll(const std::string& fileName)
+{
+    std::ifstream ifs;
+    ifs.open(fileName);
+    ifs.seekg(0, std::ios::end);
+    size_t length = ifs.tellg();
+    ifs.seekg(0, std::ios::beg);
+    std::string buff(length, 0);
+    ifs.read(&buff[0], length);
+    ifs.close();
 
+    return buff;
+}
