@@ -14,3 +14,4 @@ static size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* u
 int DownloadHTML(const string& url, string* html);
 void find_buttons_and_images(const GumboNode* node);
 void find_all_links(const GumboNode* node, vector<string>& links);
+std::string readAll(const std::string& fileName);
