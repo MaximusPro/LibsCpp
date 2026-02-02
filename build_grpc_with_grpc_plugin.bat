@@ -1,0 +1,16 @@
+@echo off
+set INSTALL_DIR=C:\grpc-static-with_grpc_plagin
+set BUILD_DIR=build-clear_clang-realease
+
+cd /d C:\Users\Max\source\Building\grpc
+if exist %BUILD_DIR% rmdir /s /q %BUILD_DIR%
+mkdir %BUILD_DIR%
+cd %BUILD_DIR%
+
+cmake .. -G "Ninja" -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_LINKER="C:\clang+llvm-21.1.8-x86_64-pc-windows-msvc\bin\lld-link.exe" -DCMAKE_BUILD_TYPE=Release -DgRPC_MSVC_STATIC_RUNTIME=ON -DgRPC_ABSL_PROVIDER=module -DgRPC_PROTOBUF_PROVIDER=module -DgRPC_SSL_PROVIDER=module -DgRPC_ZLIB_PROVIDER=module -DgRPC_BUILD_GRPC_CPP_PLUGIN=ON -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=OFF -DgRPC_BUILD_CODEGEN=ON -DgRPC_INSTALL_CSHARP_EXT=OFF -DCMAKE_INSTALL_PREFIX="%INSTALL_DIR%" -DOPENSSL_USE_STATIC_LIBS=TRUE -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_STANDARD_REQUIRED=ON -DBORINGSSL_BUILD_TOOL=OFF -DgRPC_INSTALL=ON -Dprotobuf_MSVC_STATIC_RUNTIME=ON
+
+ninja -j8
+ninja install
+
+echo Done. Check %INSTALL_DIR%\lib
+pause
