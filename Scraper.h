@@ -6,12 +6,35 @@
 #include <gumbo.h>
 #include <string_view>
 #include <algorithm>
+#include <fstream>
+#include <regex>
+#include <rapidjson/writer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/error/en.h>
+#include <thread>
+#include <chrono>
+#include <cstdlib>
+#ifdef _WIN32
+#include <cstdio>
+#define popen _popen
+#define pclose _pclose
+#else
+#include <stdio.h>
+#endif
+#include <cctype>
 
 using namespace std;
 
 bool iequals(std::string_view a, std::string_view b);
 static size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* userp);
 int DownloadHTML(const string& url, string* html);
+std::string trim(const std::string& str);
+std::vector<std::string> get_soundcloud_track_urls(
+    const std::string& user_id,          // "4521252"
+    const std::string& client_id,
+    size_t limit_per_page);
+std::string exec(const char* cmd);
+int WriteToCSV(string NameFile, vector<pair<string, string>>* List);
 void find_buttons_and_images(const GumboNode* node);
 void find_all_links(const GumboNode* node, vector<string>& links);
 std::string readAll(const std::string& fileName);
